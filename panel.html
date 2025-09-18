@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Killer AI - Realtime</title>
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+    <div class="panel-container">
+        <!-- Header -->
+        <div class="panel-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🚀</span>
+                    <span class="logo-text">Killer AI - Realtime</span>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn settings-btn" id="settingsBtn" title="Settings">
+                        <span>⚙️</span>
+                    </button>
+                    <button class="header-btn minimize-btn" id="minimizeBtn" title="Minimize">
+                        <span>−</span>
+                    </button>
+                    <button class="header-btn close-btn" id="closeBtn" title="Close">
+                        <span>×</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="panel-content">
+            <!-- Welcome State -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-icon">🤖</div>
+                <h3>Welcome to Killer AI</h3>
+                <p>Select text on any webpage to get AI assistance, or press <kbd>Ctrl+C</kbd> for instant answers!</p>
+            </div>
+
+            <!-- Question Section -->
+            <div class="question-section hidden" id="questionSection">
+                <div class="question-header">
+                    <span class="copy-icon">📋</span>
+                    <span class="question-label">COPIED QUESTION:</span>
+                </div>
+                <div class="question-text" id="questionText"></div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-section hidden" id="loadingSection">
+                <div class="loading-content">
+                    <div class="ai-avatar">
+                        <img src="spinner.svg" alt="Loading" class="spinner">
+                    </div>
+                    <div class="loading-text" id="loadingText">Ready for AI analysis</div>
+                </div>
+            </div>
+
+            <!-- Response Section -->
+            <div class="response-section hidden" id="responseSection">
+                <div class="response-header">
+                    <div class="ai-avatar-response">🤖</div>
+                    <div class="response-label" id="responseLabel">AI Response</div>
+                    <div class="response-meta" id="responseMeta"></div>
+                </div>
+                <div class="response-content" id="responseContent"></div>
+            </div>
+
+            <!-- Error Section -->
+            <div class="error-section hidden" id="errorSection">
+                <div class="error-icon">⚠️</div>
+                <div class="error-message" id="errorMessage"></div>
+                <button class="retry-btn" id="retryBtn">Try Again</button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons" id="actionButtons">
+            <button class="action-btn explain-btn" id="explainBtn">
+                <span class="btn-icon">📖</span>
+                <span>Explain</span>
+            </button>
+            <button class="action-btn answer-btn" id="answerBtn">
+                <span class="btn-icon">💡</span>
+                <span>Get Answer</span>
+            </button>
+        </div>
+
+        <!-- Response Actions -->
+        <div class="response-actions hidden" id="responseActions">
+            <button class="response-action-btn copy-btn" id="copyBtn">
+                <span class="btn-icon">📋</span>
+                <span>Copy Answer</span>
+            </button>
+            <button class="response-action-btn new-btn" id="newBtn">
+                <span class="btn-icon">✨</span>
+                <span>New Question</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="panel-footer">
+            <div class="speed-indicator">
+                <span class="speed-icon">⚡</span>
+                <span>Ultra-fast: 1-2 seconds</span>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="settings-modal hidden" id="settingsModal">
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h3>Settings</h3>
+                    <button class="close-settings-btn" id="closeSettingsBtn">×</button>
+                </div>
+                <div class="settings-body">
+                    <div class="setting-group">
+                        <label for="apiKeyInput">Google API Key:</label>
+                        <input type="password" id="apiKeyInput" placeholder="Enter your Google API key">
+                    </div>
+                    <div class="setting-group">
+                        <label for="endpointInput">API Endpoint:</label>
+                        <input type="url" id="endpointInput" placeholder="https://your-google-api-endpoint">
+                    </div>
+                </div>
+                <div class="settings-footer">
+                    <button class="settings-btn cancel-btn" id="cancelSettingsBtn">Cancel</button>
+                    <button class="settings-btn save-btn" id="saveSettingsBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+/* Killer AI Extension - Universal CSS for all browsers and exam sites */
+
+/* Base styles for maximum compatibility */
+#killer-floating-toolbar,
+#killer-ai-chat,
+[id^="killer-ai-chat-"] {
+  /* Force highest priority */
+  z-index: 2147483647 !important;
+  position: fixed !important;
+  
+  /* Cross-browser compatibility */
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  
+  /* Prevent interference from site styles */
+  all: initial !important;
+  box-sizing: border-box !important;
+  color-scheme: light !important;
+  
+  /* Browser-specific resets */
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  
+  /* Ensure visibility on all backgrounds */
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Exam site specific overrides */
+body[data-exam="true"] #killer-floating-toolbar,
+body[class*="exam"] #killer-floating-toolbar,
+body[class*="test"] #killer-floating-toolbar,
+body[class*="quiz"] #killer-floating-toolbar,
+.proctorio-active #killer-floating-toolbar,
+.lockdown-browser #killer-floating-toolbar,
+.respondus-active #killer-floating-toolbar {
+  /* Ultra-high priority for exam environments */
+  z-index: 999999999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  opacity: 0.95 !important;
+  transform: scale(0.8) !important;
+}
+
+/* Canvas LMS specific */
+.ic-app #killer-floating-toolbar,
+#application.canvas #killer-floating-toolbar {
+  z-index: 10000 !important;
+}
+
+/* Blackboard specific */
+#globalNavPageContentArea #killer-floating-toolbar,
+.bb-page-content #killer-floating-toolbar {
+  z-index: 9999 !important;
+}
+
+/* Moodle specific */
+#page #killer-floating-toolbar,
+.moodle-page #killer-floating-toolbar {
+  z-index: 9998 !important;
+}
+
+/* Brightspace/D2L specific */
+.d2l-page #killer-floating-toolbar,
+.d2l-body #killer-floating-toolbar {
+  z-index: 9997 !important;
+}
+
+/* Schoology specific */
+.schoology #killer-floating-toolbar,
+#wrapper #killer-floating-toolbar {
+  z-index: 9996 !important;
+}
+
+/* ExamSoft/SofTest specific */
+.examsoft #killer-floating-toolbar,
+.softest #killer-floating-toolbar {
+  z-index: 999999 !important;
+  opacity: 0.8 !important;
+}
+
+/* Pearson MyLab specific */
+.pearson #killer-floating-toolbar,
+.mylab #killer-floating-toolbar {
+  z-index: 9995 !important;
+}
+
+/* McGraw Hill Connect specific */
+.mhhe #killer-floating-toolbar,
+.connect #killer-floating-toolbar {
+  z-index: 9994 !important;
+}
+
+/* Cengage WebAssign specific */
+.cengage #killer-floating-toolbar,
+.webassign #killer-floating-toolbar {
+  z-index: 9993 !important;
+}
+
+/* Animation keyframes for cross-browser support */
+@keyframes killer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@-webkit-keyframes killer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@-moz-keyframes killer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Loading animation with browser prefixes */
+.killer-loading-dot {
+  animation: killer-pulse 1.5s infinite !important;
+  -webkit-animation: killer-pulse 1.5s infinite !important;
+  -moz-animation: killer-pulse 1.5s infinite !important;
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  #killer-floating-toolbar,
+  [id^="killer-ai-chat-"] {
+    color-scheme: light !important;
+    background: white !important;
+    border-color: #e1e5e9 !important;
+  }
+}
+
+/* High contrast mode compatibility */
+@media (prefers-contrast: high) {
+  #killer-floating-toolbar,
+  [id^="killer-ai-chat-"] {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+/* Print media - hide extension elements */
+@media print {
+  #killer-floating-toolbar,
+  [id^="killer-ai-chat-"],
+  .killer-notification {
+    display: none !important;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #killer-floating-toolbar {
+    transform: scale(0.9) !important;
+  }
+  
+  [id^="killer-ai-chat-"] {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    right: 2.5vw !important;
+  }
+}
+
+/* Browser-specific fixes */
+
+/* Chrome/Chromium */
+@supports (-webkit-appearance: none) {
+  #killer-floating-toolbar {
+    -webkit-font-feature-settings: "liga" 1 !important;
+  }
+}
+
+/* Firefox */
+@-moz-document url-prefix() {
+  #killer-floating-toolbar {
+    -moz-font-feature-settings: "liga" 1 !important;
+  }
+}
+
+/* Safari */
+@supports (-webkit-appearance: none) and (not (-ms-ime-align: auto)) {
+  #killer-floating-toolbar {
+    -webkit-transform: translateZ(0) !important;
+  }
+}
+
+/* Edge */
+@supports (-ms-ime-align: auto) {
+  #killer-floating-toolbar {
+    -ms-transform: translateZ(0) !important;
+  }
+}
+
+/* Opera */
+@supports ((-o-object-fit: contain)) {
+  #killer-floating-toolbar {
+    -o-transform: translateZ(0) !important;
+  }
+}
+
+/* Accessibility improvements */
+#killer-floating-toolbar:focus-within,
+[id^="killer-ai-chat-"]:focus-within {
+  outline: 3px solid #007cba !important;
+  outline-offset: 2px !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  #killer-floating-toolbar,
+  [id^="killer-ai-chat-"],
+  .killer-loading-dot {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Force visibility on problematic sites */
+.killer-force-visible {
+  visibility: visible !important;
+  display: block !important;
+  opacity: 1 !important;
+}
