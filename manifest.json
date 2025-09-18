@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Killer",
   "version": "1.0.0",
-  "description": "AI-powered text explanation and answering extension with floating toolbar - Universal access for all browsers and exam sites",
+  "description": "AI-powered text explanation and answering extension with floating toolbar",
   "permissions": [
     "storage",
     "scripting",
@@ -16,28 +16,15 @@
   "host_permissions": [
     "<all_urls>"
   ],
-  "optional_permissions": [
-    "bookmarks",
-    "downloads",
-    "history",
-    "topSites",
-    "geolocation",
-    "debugger"
-  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
+      "matches": ["<all_urls>"],
       "js": ["content.js"],
       "css": ["content.css"],
-      "run_at": "document_start",
-      "all_frames": true,
-      "match_about_blank": true,
-      "match_origin_as_fallback": true
+      "run_at": "document_end"
     }
   ],
   "action": {
@@ -56,26 +43,14 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "panel.html", 
-        "panel.css", 
-        "panel.js", 
+        "panel.html",
+        "panel.css",
+        "panel.js",
         "spinner.svg",
-        "content.css",
-        "*.png",
-        "*.jpg",
-        "*.svg",
-        "*.css",
-        "*.js",
-        "*.html"
+        "content.css"
       ],
-      "matches": ["<all_urls>"],
-      "use_dynamic_url": true
+      "matches": ["<all_urls>"]
     }
   ],
-  "externally_connectable": {
-    "matches": ["<all_urls>"],
-    "ids": ["*"],
-    "accepts_tls_channel_id": false
-  },
   "minimum_chrome_version": "88"
 }
