@@ -11,29 +11,10 @@
     "clipboardRead",
     "clipboardWrite",
     "contextMenus",
-    "notifications",
-    "background",
-    "unlimitedStorage",
-    "webNavigation",
-    "webRequest",
-    "webRequestBlocking",
-    "cookies",
-    "identity",
-    "management",
-    "system.display",
-    "system.memory",
-    "system.storage",
-    "declarativeContent",
-    "declarativeNetRequest",
-    "declarativeNetRequestFeedback"
+    "notifications"
   ],
   "host_permissions": [
-    "<all_urls>",
-    "*://*/*",
-    "http://*/*",
-    "https://*/*",
-    "file:///*",
-    "ftp://*/*"
+    "<all_urls>"
   ],
   "optional_permissions": [
     "bookmarks",
@@ -49,43 +30,7 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>",
-        "*://*/*",
-        "http://*/*", 
-        "https://*/*",
-        "file:///*",
-        "*://localhost/*",
-        "*://127.0.0.1/*",
-        "*://*.edu/*",
-        "*://*.org/*",
-        "*://*.com/*",
-        "*://*.net/*",
-        "*://*.gov/*",
-        "*://canvas.*/*",
-        "*://blackboard.*/*",
-        "*://moodle.*/*",
-        "*://brightspace.*/*",
-        "*://schoology.*/*",
-        "*://pearson.*/*",
-        "*://mcgraw.*/*",
-        "*://cengage.*/*",
-        "*://wiley.*/*",
-        "*://coursera.*/*",
-        "*://edx.*/*",
-        "*://udemy.*/*",
-        "*://khanacademy.*/*",
-        "*://examsoft.*/*",
-        "*://proctorio.*/*",
-        "*://lockdown.*/*",
-        "*://respondus.*/*",
-        "*://honorlock.*/*",
-        "*://examity.*/*",
-        "*://proctor.*/*",
-        "*://test.*/*",
-        "*://quiz.*/*",
-        "*://exam.*/*",
-        "*://assessment.*/*",
-        "*://evaluation.*/*"
+        "<all_urls>"
       ],
       "js": ["content.js"],
       "css": ["content.css"],
@@ -132,16 +77,5 @@
     "ids": ["*"],
     "accepts_tls_channel_id": false
   },
-  "content_security_policy": {
-    "extension_pages": "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://generativelanguage.googleapis.com https://ai.google.dev; object-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com https://ai.google.dev https://gemini.google.com wss: ws: *; style-src 'self' 'unsafe-inline';"
-  },
-  "cross_origin_embedder_policy": {
-    "value": "require-corp"
-  },
-  "cross_origin_opener_policy": {
-    "value": "same-origin"
-  },
-  "minimum_chrome_version": "88",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA",
-  "update_url": "https://clients2.google.com/service/update2/crx"
+  "minimum_chrome_version": "88"
 }
