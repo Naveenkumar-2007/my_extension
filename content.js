@@ -206,27 +206,28 @@ function showFloatingToolbar(x, y) {
   
   // Add styles with enhanced compatibility
   const zIndex = examMode ? '999999999' : '2147483647';
-  const opacity = examMode ? '0.95' : '1';
+  const opacity = '1'; // Always full opacity for visibility
   const scale = examMode ? 'scale(0.85)' : 'scale(1)';
   
   floatingToolbar.style.cssText = `
     position: fixed !important;
-    display: flex;
+    display: flex !important;
     gap: 4px;
-    background: white;
+    background: #ffffff !important;
     border-radius: 6px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
-    padding: 4px;
-    z-index: ${zIndex};
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-    border: 1px solid #e1e5e9;
-    opacity: ${opacity};
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    padding: 8px;
+    z-index: ${zIndex} !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    border: 2px solid #007cba !important;
+    opacity: ${opacity} !important;
     transform: ${scale};
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    color-scheme: light;
-    all: initial;
-    box-sizing: border-box;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 120px;
+    min-height: 40px;
   `;
   
   // Add force visibility class for problematic sites
@@ -236,18 +237,22 @@ function showFloatingToolbar(x, y) {
   const buttons = floatingToolbar.querySelectorAll('.killer-toolbar-btn');
   buttons.forEach(btn => {
     btn.style.cssText = `
-      display: flex;
+      display: flex !important;
       align-items: center;
       gap: 3px;
-      padding: 6px 8px;
-      border: none;
+      padding: 8px 12px !important;
+      border: none !important;
       border-radius: 4px;
-      font-size: 11px;
-      font-weight: 500;
-      cursor: pointer;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      cursor: pointer !important;
       transition: all 0.2s;
-      background: #f8f9fa;
-      color: #495057;
+      background: #f8f9fa !important;
+      color: #495057 !important;
+      min-width: 70px;
+      text-align: center;
+      visibility: visible !important;
+      opacity: 1 !important;
     `;
     
     if (btn.dataset.action === 'explain') {
@@ -277,36 +282,46 @@ function showFloatingToolbar(x, y) {
     });
   });
   
-  // Position toolbar
-  const rect = document.body.getBoundingClientRect();
-  const toolbarWidth = 160; // Estimated width (smaller)
-  const toolbarHeight = 34; // Estimated height (smaller)
+  // Position toolbar - Force visible position
+  const toolbarWidth = 180;
+  const toolbarHeight = 50;
   
-  let left = x - toolbarWidth / 2;
-  let top = y - toolbarHeight - 10;
+  // Use viewport coordinates for better positioning
+  let left = Math.max(10, Math.min(x - toolbarWidth / 2, window.innerWidth - toolbarWidth - 10));
+  let top = Math.max(10, y - toolbarHeight - 15);
   
-  // Keep toolbar within viewport
-  if (left < 10) left = 10;
-  if (left + toolbarWidth > window.innerWidth - 10) {
-    left = window.innerWidth - toolbarWidth - 10;
+  // If toolbar would be too high, put it below the selection
+  if (top < 50) {
+    top = y + 25;
   }
-  if (top < 10) top = y + 10;
   
-  floatingToolbar.style.left = `${left}px`;
-  floatingToolbar.style.top = `${top}px`;
+  floatingToolbar.style.left = `${left}px !important`;
+  floatingToolbar.style.top = `${top}px !important`;
+  
+  console.log('🔧 Toolbar positioned at:', left, top, 'viewport:', window.innerWidth, window.innerHeight);
   
   document.body.appendChild(floatingToolbar);
   console.log('🔧 Floating toolbar added to body');
   
-  // Add fade-in animation
-  floatingToolbar.style.opacity = '0';
-  floatingToolbar.style.transform = 'translateY(5px)';
-  requestAnimationFrame(() => {
-    floatingToolbar.style.transition = 'opacity 0.2s, transform 0.2s';
-    floatingToolbar.style.opacity = '1';
-    floatingToolbar.style.transform = 'translateY(0)';
-    console.log('🔧 Floating toolbar animation complete');
-  });
+  // Force immediate visibility for testing
+  floatingToolbar.style.opacity = '1 !important';
+  floatingToolbar.style.visibility = 'visible !important';
+  floatingToolbar.style.display = 'flex !important';
+  
+  // Add a bright background for visibility testing
+  setTimeout(() => {
+    floatingToolbar.style.background = '#ff4444 !important';
+    floatingToolbar.style.border = '3px solid #000000 !important';
+    console.log('🔧 Toolbar forced to red background for visibility test');
+    
+    // Return to normal after 2 seconds
+    setTimeout(() => {
+      floatingToolbar.style.background = '#ffffff !important';
+      floatingToolbar.style.border = '2px solid #007cba !important';
+    }, 2000);
+  }, 100);
+  
+  console.log('🔧 Toolbar should now be visible with red background');
 }
 
 function hideFloatingToolbar() {
