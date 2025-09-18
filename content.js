@@ -2,6 +2,15 @@
 console.log('🚀 Killer AI content script loaded on:', window.location.href);
 console.log('🔒 Enhanced permissions active - All browsers & exam sites supported');
 
+// Force visibility check
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('📋 DOM loaded, extension ready');
+  });
+} else {
+  console.log('📋 DOM already loaded, extension ready');
+}
+
 let floatingToolbar = null;
 let currentSelection = '';
 let lastRequestTime = 0;
@@ -29,6 +38,37 @@ if (examMode) {
   console.log('🎓 Exam environment detected - Enhanced stealth mode active');
   document.body.setAttribute('data-killer-exam', 'true');
 }
+
+// Add a test indicator to show extension is loaded
+setTimeout(() => {
+  if (document.body) {
+    const testDiv = document.createElement('div');
+    testDiv.id = 'killer-test-indicator';
+    testDiv.style.cssText = `
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #4CAF50;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 999999;
+      opacity: 0.8;
+    `;
+    testDiv.textContent = 'Killer AI Loaded ✓';
+    document.body.appendChild(testDiv);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+      if (testDiv.parentNode) {
+        testDiv.remove();
+      }
+    }, 3000);
+    
+    console.log('🔧 Test indicator added');
+  }
+}, 1000);
 
 // Initialize content script with exam site bypass
 initializeContentScript();
@@ -104,17 +144,22 @@ function setupSelectionHandlers() {
 }
 
 function handleMouseUp(event) {
+  console.log('🖱️ Mouse up event detected at:', event.pageX, event.pageY);
+  
   setTimeout(() => {
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
     
-    console.log('🖱️ Mouse up - Selected text:', selectedText ? `"${selectedText}"` : 'none');
+    console.log('🖱️ Selected text length:', selectedText.length);
+    console.log('🖱️ Selected text:', selectedText ? `"${selectedText}"` : 'none');
     
     if (selectedText && selectedText.length > 0) {
       currentSelection = selectedText;
       console.log('📍 Showing floating toolbar at:', event.pageX, event.pageY);
+      console.log('📍 Current selection set to:', currentSelection);
       showFloatingToolbar(event.pageX, event.pageY);
     } else {
+      console.log('📍 No text selected, hiding toolbar');
       hideFloatingToolbar();
     }
   }, 10);
@@ -142,7 +187,8 @@ function handleDocumentClick(event) {
 
 // Create and show floating toolbar
 function showFloatingToolbar(x, y) {
-  console.log('🔧 Creating floating toolbar');
+  console.log('🔧 Creating floating toolbar at position:', x, y);
+  console.log('🔧 Extension context valid:', isExtensionContextValid());
   hideFloatingToolbar(); // Remove existing toolbar
   
   floatingToolbar = document.createElement('div');
@@ -250,6 +296,7 @@ function showFloatingToolbar(x, y) {
   floatingToolbar.style.top = `${top}px`;
   
   document.body.appendChild(floatingToolbar);
+  console.log('🔧 Floating toolbar added to body');
   
   // Add fade-in animation
   floatingToolbar.style.opacity = '0';
@@ -258,6 +305,7 @@ function showFloatingToolbar(x, y) {
     floatingToolbar.style.transition = 'opacity 0.2s, transform 0.2s';
     floatingToolbar.style.opacity = '1';
     floatingToolbar.style.transform = 'translateY(0)';
+    console.log('🔧 Floating toolbar animation complete');
   });
 }
 
